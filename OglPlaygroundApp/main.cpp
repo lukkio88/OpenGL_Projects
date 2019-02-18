@@ -10,6 +10,21 @@ using std::stringstream;
 using std::getline;
 using std::string;
 
+void GLAPIENTRY
+MessageCallback(GLenum source,
+	GLenum type,
+	GLuint id,
+	GLenum severity,
+	GLsizei length,
+	const GLchar* message,
+	const void* userParam)
+{
+	fprintf(stderr,"GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+		(type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+		type, severity, message);
+	//__debugbreak();
+}
+
 struct ShaderProgramsSrcs {
 	string vertex_shader;
 	string fragment_shader;
@@ -33,10 +48,6 @@ static ShaderProgramsSrcs readShaderSrcs(const string& filename) {
 			ss[idx] << curr_line << std::endl;
 		}
 	}
-
-	std::cout << ss[0].str() << std::endl;
-	std::cout << ss[1].str() << std::endl;
-
 
 	return ShaderProgramsSrcs{ ss[0].str(),ss[1].str() };
 }
@@ -98,10 +109,22 @@ int main(void)
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
+	
+	/*Declaring the debug context*/
+	//if (glfwExtensionSupported("GL_ARB_debug_output") == GLFW_TRUE) {
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+	//}
 
 	if (glewInit() != GLEW_OK) {
 		std::cout << "Error!" << std::endl;
 	}
+
+	// Set debug callback
+	/*if (glDebugMessageCallback) {
+		glDebugMessageCallback(MessageCallback, 0);
+	}
+	glEnable(GL_DEBUG_OUTPUT);*/
+
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
