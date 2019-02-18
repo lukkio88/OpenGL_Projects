@@ -163,6 +163,8 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		int uniform_idx = glGetUniformLocation(program, "u_Color");
+		glUniform4f(uniform_idx, 0.0, 1.0, 0.0, 1.0);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); //Why the nullptr?
 
 
