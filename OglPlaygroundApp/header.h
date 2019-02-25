@@ -16,6 +16,13 @@ struct ShaderProgramsSrcs {
 	string fragment_shader;
 };
 
+#define ASSERT(x) if(!(x)) __debugbreak(x);
+#define GLCall(x) GLClearError();\
+	x;\
+	ASSERT(GLLogCall(#x,__FILE__,__LINE__))
+
+bool GLLogCall(const char * function, const char * file, int line);
+
 void GLAPIENTRY
 MessageCallback(GLenum source,
 	GLenum type,

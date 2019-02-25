@@ -1,5 +1,14 @@
 #include <header.h>
 
+bool GLLogCall(const char * function, const char * file, int line) {
+	while (GLenum error = glGetError()) {
+		std::cout << "[OpenGL Error] " << "): " << function <<
+			" " << file << ": " << line << std::endl;
+		return false;
+	}
+	return true;
+}
+
 void GLAPIENTRY
 MessageCallback(GLenum source,
 	GLenum type,
