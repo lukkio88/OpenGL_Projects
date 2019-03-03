@@ -12,11 +12,6 @@ using std::stringstream;
 using std::getline;
 using std::string;
 
-struct ShaderProgramsSrcs {
-	string vertex_shader;
-	string fragment_shader;
-};
-
 #define ASSERT(x) if(!(x)) __debugbreak();
 #define GLCall(x) GLClearError();\
 	x;\
@@ -33,7 +28,3 @@ MessageCallback(GLenum source,
 	GLsizei length,
 	const GLchar* message,
 	const void* userParam);
-
-ShaderProgramsSrcs readShaderSrcs(const string& filename);
-unsigned int compileShader(unsigned int type, const string& src);
-unsigned int createShader(const ShaderProgramsSrcs& src);

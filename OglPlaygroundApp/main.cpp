@@ -2,6 +2,7 @@
 #include <VertexBuffer.h>
 #include <IndexBuffer.h>
 #include <VertexArray.h>
+#include <Shader.h>
 
 int main(void)
 {
@@ -68,18 +69,22 @@ int main(void)
 
 		IndexBuffer ib(idx, 6);
 
-		ShaderProgramsSrcs programsSrc = readShaderSrcs("../Basic.shader");
-		unsigned int program = createShader(programsSrc);
-		glUseProgram(program);
+		Shader shader("./Basic.shader");
+		shader.Bind();
+		shader.SetUniform4f("u_Color", 0.0f, 0.3f, 0.8f, 1.0f);
 
-		int uniform_idx = glGetUniformLocation(program, "u_Color");
-		glUniform4f(uniform_idx, 0.0, 1.0, 0.0, 1.0);
+		va.Unbind();
+		shader.Unbind();
+		vb.Unbind();
+		ib.Unbind();
 
 		/* Loop until the user closes the window */
 		while (!glfwWindowShouldClose(window))
 		{
-			glClear(GL_COLOR_BUFFER_BIT);
+			GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
+			shader.Bind();
+			shader.SetUniform4f("u_Color", 0.0f, 0.3f, 0.8f, 1.0f);
 			va.Bind();
 			ib.Bind();
 
@@ -92,7 +97,6 @@ int main(void)
 			glfwPollEvents();
 		}
 
-		glDeleteProgram(program);
 	}
 
 	glfwTerminate();
