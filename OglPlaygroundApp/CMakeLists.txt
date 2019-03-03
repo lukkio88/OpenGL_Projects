@@ -2,11 +2,10 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 project(OglPlaygroud)
 set(CMAKE_CXX_STANDARD 11)
 
-#find_package(glfw3 3.2 REQUIRED)
 find_package(OpenGL REQUIRED)
 
-set(SRC src.cpp main.cpp)
-set(HEADER header.h)
+set(SRC src.cpp main.cpp src.cpp VertexBuffer.cpp IndexBuffer.cpp)
+set(HEADER header.h VertexBuffer.h IndexBuffer.h)
 set(SHADER_SRC Basic.shader)
 source_group("Shader Files" FILES ${SHADER_SRC})
 link_directories(./dependencies/GLFW/lib-vc2015 ./dependencies/GLEW/lib/Release/x64)

@@ -9,6 +9,10 @@ bool GLLogCall(const char * function, const char * file, int line) {
 	return true;
 }
 
+void GLClearError() {
+	while (glGetError() != GL_NO_ERROR);
+}
+
 void GLAPIENTRY
 MessageCallback(GLenum source,
 	GLenum type,

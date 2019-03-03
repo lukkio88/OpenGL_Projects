@@ -1,3 +1,4 @@
+#pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -16,12 +17,13 @@ struct ShaderProgramsSrcs {
 	string fragment_shader;
 };
 
-#define ASSERT(x) if(!(x)) __debugbreak(x);
+#define ASSERT(x) if(!(x)) __debugbreak();
 #define GLCall(x) GLClearError();\
 	x;\
 	ASSERT(GLLogCall(#x,__FILE__,__LINE__))
 
 bool GLLogCall(const char * function, const char * file, int line);
+void GLClearError();
 
 void GLAPIENTRY
 MessageCallback(GLenum source,
