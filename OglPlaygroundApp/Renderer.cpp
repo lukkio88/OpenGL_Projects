@@ -1,4 +1,4 @@
-#include <header.h>
+#include <Renderer.h>
 
 bool GLLogCall(const char * function, const char * file, int line) {
 	while (GLenum error = glGetError()) {
