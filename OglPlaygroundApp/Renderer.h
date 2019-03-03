@@ -1,30 +1,13 @@
 #pragma once
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <vector>
+#include <VertexArray.h>
+#include <VertexBuffer.h>
+#include <VertexBufferLayout.h>
+#include <IndexBuffer.h>
+#include <Shader.h>
 
-using std::ifstream;
-using std::stringstream;
-using std::getline;
-using std::string;
-
-#define ASSERT(x) if(!(x)) __debugbreak();
-#define GLCall(x) GLClearError();\
-	x;\
-	ASSERT(GLLogCall(#x,__FILE__,__LINE__))
-
-bool GLLogCall(const char * function, const char * file, int line);
-void GLClearError();
-
-void GLAPIENTRY
-MessageCallback(GLenum source,
-	GLenum type,
-	GLuint id,
-	GLenum severity,
-	GLsizei length,
-	const GLchar* message,
-	const void* userParam);
+class Renderer {
+public:
+	void Clear() const;
+	void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+private:
+};
