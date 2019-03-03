@@ -1,6 +1,7 @@
 #include <header.h>
 #include <VertexBuffer.h>
 #include <IndexBuffer.h>
+#include <VertexArray.h>
 
 int main(void)
 {
@@ -58,10 +59,12 @@ int main(void)
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
 
+		VertexArray va;
 		VertexBuffer vb(position, 8 * sizeof(float));
+		VertexBufferLayout layout;
 
-		GLCall(glEnableVertexAttribArray(0));
-		GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0));
+		layout.Push<float>(2);
+		va.AddBuffer(vb, layout);
 
 		IndexBuffer ib(idx, 6);
 
@@ -76,8 +79,8 @@ int main(void)
 		while (!glfwWindowShouldClose(window))
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
-			glBindVertexArray(vao);
 
+			va.Bind();
 			ib.Bind();
 
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
