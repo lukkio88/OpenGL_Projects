@@ -4,8 +4,8 @@ set(CMAKE_CXX_STANDARD 11)
 
 find_package(OpenGL REQUIRED)
 
-set(SRC main.cpp Renderer.cpp VertexBuffer.cpp IndexBuffer.cpp VertexArray.cpp VertexBufferLayout.cpp Shader.cpp)
-set(HEADER Renderer.h VertexBuffer.h IndexBuffer.h VertexArray.h VertexBufferLayout.h Shader.h)
+set(SRC main.cpp Renderer.cpp Texture.cpp VertexBuffer.cpp IndexBuffer.cpp VertexArray.cpp VertexBufferLayout.cpp Common.cpp Shader.cpp)
+set(HEADER Renderer.h Texture.h VertexBuffer.h IndexBuffer.h VertexArray.h VertexBufferLayout.h Shader.h Common.h stb_image.h)
 set(SHADER_SRC Basic.shader)
 source_group("Shader Files" FILES ${SHADER_SRC})
 link_directories(./dependencies/GLFW/lib-vc2015 ./dependencies/GLEW/lib/Release/x64)

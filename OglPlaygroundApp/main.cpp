@@ -1,7 +1,9 @@
-#include <Renderer.h>
+#include <Texture.h>
+#include <Windows.h>
 
 int main(void)
 {
+
 	GLFWwindow* window;
 
 	/* Initialize the library */
@@ -41,25 +43,30 @@ int main(void)
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 	{
-		float position[8] = {
-			-0.5f, -0.5f,
-			0.5f, -0.5f,
-			0.5f, 0.5f,
-			-0.5f,0.5f
+		float position[] = {
+			-0.5f, -0.5f, 0.0f, 0.0f,
+			0.5f, -0.5f, 1.0f, 0.0f,
+			0.5f, 0.5f, 1.0f, 1.0f,
+			-0.5f,0.5f, 0.0f, 1.0f
 		};
 
 		unsigned int idx[6]{
-			0,1,2,2,3,0
+			0,1,2,
+			2,3,0
 		};
+
+		GLCall(glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA));
+		GLCall(glEnable(GL_BLEND));
 
 		unsigned int vao;
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
 
 		VertexArray va;
-		VertexBuffer vb(position, 8 * sizeof(float));
-		VertexBufferLayout layout;
+		VertexBuffer vb(position, 16 * sizeof(float));
 
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
 		layout.Push<float>(2);
 		va.AddBuffer(vb, layout);
 
@@ -68,6 +75,10 @@ int main(void)
 		Shader shader("./Basic.shader");
 		shader.Bind();
 		shader.SetUniform4f("u_Color", 0.0f, 0.3f, 0.8f, 1.0f);
+
+		Texture texture("layla.png");
+		texture.Bind();
+		shader.SetUniform1i("u_Texture", 0);
 
 		va.Unbind();
 		shader.Unbind();

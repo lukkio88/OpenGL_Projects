@@ -23,9 +23,19 @@ void Shader::Unbind() const
 	GLCall(glUseProgram(0));
 }
 
+void Shader::SetUniform1i(const std::string & name, int value)
+{
+	GLCall(glUniform1i(GetUniformLocation(name), value));
+}
+
+void Shader::SetUniform1f(const std::string & name, float value)
+{
+	GLCall(glUniform1f(GetUniformLocation(name), value));
+}
+
 void Shader::SetUniform4f(const std::string & name, float v0, float v1, float v2, float v3)
 {
-	GLCall(glUniform4f(GetUniformLocation(name), 0.0, 1.0, 0.0, 1.0));
+	GLCall(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
 }
 
 ShaderProgramsSrcs Shader::readShaderSrcs(const string& filename) {
@@ -90,13 +100,15 @@ unsigned int Shader::CreateShader(const ShaderProgramsSrcs& src) {
 	return program;
 }
 
-unsigned int Shader::GetUniformLocation(const std::string & name)
+int Shader::GetUniformLocation(const std::string & name)
 {
 	if (m_UniformdLocationCache.find(name) != m_UniformdLocationCache.end())
 		return m_UniformdLocationCache[name];
-	GLCall(unsigned int uniform_idx = glGetUniformLocation(m_RendererID, name.c_str()));
+	
+	GLCall(int uniform_idx = glGetUniformLocation(m_RendererID, name.c_str()));
 	if (uniform_idx == -1)
-		std::cout << "Warning: uniform" << name << " doesn't exist!" << std::endl;
+		std::cout << "Warning: uniform " << name << " doesn't exist!" << std::endl;
+	
 	m_UniformdLocationCache[name] = uniform_idx;
 	return uniform_idx;
 }
