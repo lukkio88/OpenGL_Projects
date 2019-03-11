@@ -12,10 +12,18 @@ link_directories(./dependencies/GLFW/lib-vc2015 ./dependencies/GLEW/lib/Release/
 set(GLFW_LIB glfw3)
 set(GLEW_LIB glew32s)
 set(GLM_INCLUDE ./dependencies/glm)
-source_group(TREE ${GLM_INCLUDE} PREFIX glm)
+set(IMG_GUI_INCLUDE ./dependencies/imgui)
+
+FILE(GLOB IMG_GUI_SRCS
+    ${CMAKE_SOURCE_DIR}/dependencies/imgui/*.cpp
+    ${CMAKE_SOURCE_DIR}/dependencies/imgui/*.h
+)
+
+source_group("imgui" FILES ${IMG_GUI_SRCS})
+#source_group(TREE ${GLM_INCLUDE} PREFIX glm)
 #add_compile_definitions(GLEW_STATIC)
 add_definitions(-DGLEW_STATIC)
 
-add_executable(OglPlayground ${SRC} ${HEADER} ${SHADER_SRC})
-target_include_directories(OglPlayground PUBLIC ${OPENGL_INCLUDE_DIR} ${GLM_INCLUDE} ./dependencies/GLFW/include ./dependencies/GLEW/include ./)
+add_executable(OglPlayground ${SRC} ${HEADER} ${SHADER_SRC} ${IMG_GUI_SRCS})
+target_include_directories(OglPlayground PUBLIC ${OPENGL_INCLUDE_DIR} ${GLM_INCLUDE} ./dependencies/GLFW/include ./dependencies/GLEW/include ./ ${IMG_GUI_INCLUDE})
 target_link_libraries(OglPlayground ${OPENGL_gl_LIBRARY} ${GLFW_LIB} ${GLEW_LIB})
