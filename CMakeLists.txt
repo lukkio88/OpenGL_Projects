@@ -9,7 +9,7 @@ add_library(opengl STATIC IMPORTED)
 set_target_properties(glfw PROPERTIES IMPORTED_LOCATION ${DEPENDENCIES}/GLFW/lib/glfw3.lib)
 set_target_properties(opengl PROPERTIES IMPORTED_LOCATION ${DEPENDENCIES}/OpenGL/lib/OpenGL32.Lib)
 
-set(PROJECTS WindowCreation FirstTriangle)
+set(PROJECTS WindowCreation FirstTriangle Shaders)
 foreach(project_name ${PROJECTS})
 	set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/${project_name}/main.cpp)
 	add_executable(${project_name}_bin ${SOURCE_FILES} ${DEPENDENCIES}/glad/src/glad.c)
