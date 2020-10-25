@@ -9,9 +9,13 @@ add_library(opengl STATIC IMPORTED)
 set_target_properties(glfw PROPERTIES IMPORTED_LOCATION ${DEPENDENCIES}/GLFW/lib/glfw3.lib)
 set_target_properties(opengl PROPERTIES IMPORTED_LOCATION ${DEPENDENCIES}/OpenGL/lib/OpenGL32.Lib)
 
-set(PROJECTS WindowCreation FirstTriangle Shaders)
+set(PROJECTS WindowCreation FirstTriangle Shaders Texture)
 foreach(project_name ${PROJECTS})
-	set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/${project_name}/main.cpp)
+	if(${project_name} STREQUAL Texture)
+		set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/${project_name}/main.cpp ${CMAKE_SOURCE_DIR}/${project_name}/stb_image.h)
+	else()
+		set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/${project_name}/main.cpp)
+	endif()
 	add_executable(${project_name}_bin ${SOURCE_FILES} ${DEPENDENCIES}/glad/src/glad.c)
 	target_include_directories(${project_name}_bin PUBLIC 
 		${DEPENDENCIES}/GLFW/include
