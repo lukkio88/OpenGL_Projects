@@ -9,14 +9,16 @@ add_library(opengl STATIC IMPORTED)
 set_target_properties(glfw PROPERTIES IMPORTED_LOCATION ${DEPENDENCIES}/GLFW/lib/glfw3.lib)
 set_target_properties(opengl PROPERTIES IMPORTED_LOCATION ${DEPENDENCIES}/OpenGL/lib/OpenGL32.Lib)
 
-set(PROJECTS 
+set(PROJECTS
 	WindowCreation 
 	FirstTriangle 
 	Shaders 
 	Texture 
-	Transformation)
+	Transformation
+	Camera)
+	
 foreach(project_name ${PROJECTS})
-	if((${project_name} STREQUAL Texture) OR (${project_name} STREQUAL Transformation))
+	if((${project_name} STREQUAL Texture) OR (${project_name} STREQUAL Transformation) OR (${project_name} STREQUAL Camera))
 		set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/${project_name}/main.cpp ${CMAKE_SOURCE_DIR}/${project_name}/stb_image.h)
 	else()
 		set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/${project_name}/main.cpp)
