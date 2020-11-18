@@ -16,10 +16,12 @@ set(PROJECTS
 	Texture 
 	Transformation
 	Camera
-	Colors)
+	Colors
+	BasicLightingDiffuse
+	BasicLightingSpecular)
 	
 foreach(project_name ${PROJECTS})
-	if((${project_name} STREQUAL Texture) OR (${project_name} STREQUAL Transformation) OR (${project_name} STREQUAL Camera) OR (${project_name} STREQUAL Colors))
+	if((${project_name} STREQUAL Texture) OR (${project_name} STREQUAL Transformation) OR (${project_name} STREQUAL Camera))
 		set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/${project_name}/main.cpp ${CMAKE_SOURCE_DIR}/${project_name}/stb_image.h)
 	else()
 		set(SOURCE_FILES ${CMAKE_SOURCE_DIR}/${project_name}/main.cpp)
