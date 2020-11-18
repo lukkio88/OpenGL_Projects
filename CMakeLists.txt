@@ -18,7 +18,8 @@ set(PROJECTS
 	Camera
 	Colors
 	BasicLightingDiffuse
-	BasicLightingSpecular)
+	BasicLightingSpecular
+	Materials)
 	
 foreach(project_name ${PROJECTS})
 	if((${project_name} STREQUAL Texture) OR (${project_name} STREQUAL Transformation) OR (${project_name} STREQUAL Camera))
